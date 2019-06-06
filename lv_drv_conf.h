@@ -179,7 +179,7 @@
 /*No settings*/
 #endif
 
-#define USE_MOUSEWHEEL 1
+#define USE_MOUSEWHEEL 0
 /*-------------------------------
  *   Keyboard of a PC
  *------------------------------*/

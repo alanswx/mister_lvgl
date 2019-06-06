@@ -19,6 +19,7 @@ extern "C" {
 #include "../../lv_drv_conf.h"
 #endif
 
+#if 0
 #if USE_MOUSEWHEEL
 
 #include <stdbool.h>
@@ -69,5 +70,5 @@ void mousewheel_handler(SDL_Event *event);
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
-
+#endif
 #endif /*MOUSEWHEEL_H*/

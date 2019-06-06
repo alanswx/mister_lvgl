@@ -29,7 +29,8 @@ LVGL_DEMO2_SRC	= $(wildcard ./DONTUSElv_examples/lv_tests/lv_test_group/*.c)
 LVGL_DRIVER_SRC	= $(wildcard ./lv_drivers/display/*.c)
 LVGL_DRIVER2_SRC= $(wildcard ./lv_drivers/indev/*.c)
 
-IMLIB2_LIB  = -lfreetype  -lpng16 -lz 
+#IMLIB2_LIB  = -lfreetype  -lpng16 -lz 
+IMLIB2_LIB  = 
 
 VPATH	= ./:./support/minimig:./support/sharpmz:./support/archie:./support/st:./support/x86:./support/snes
 

@@ -18,7 +18,7 @@ extern "C" {
 #else
 #include "../../lv_drv_conf.h"
 #endif
-
+#if 0
 #if USE_KEYBOARD
 
 #include <stdbool.h>
@@ -64,9 +64,9 @@ void keyboard_handler(SDL_Event *event);
  **********************/
 
 #endif /*USE_KEYBOARD*/
+#endif
 
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
-
 #endif /*KEYBOARD_H*/

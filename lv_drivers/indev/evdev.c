@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <linux/input.h>
+#include <linux/joystick.h>
 
 #include "keymap.h"
 
@@ -77,9 +78,11 @@ int evdev_button;
 int evdev_kbd_fd = -1;
 int evdev_mouse0_fd = -1;
 int evdev_mouse1_fd = -1;
+int evdev_js0_fd = -1;
 char event_kbd[9] = "";
 char event_mouse0[9] = "";
 char event_mouse1[9] = "";
+char event_js0[9] = "";
 
 /**
  * Initialize the evdev interface
@@ -108,6 +111,23 @@ void evdev_init(void)
 	       }
        }
     #endif
+       char evdev_name_js0[20] = "/dev/input/js0";
+       //char *commandj0 = "cat /proc/bus/input/devices | tr -d '|' | sed -e 's%^$%|%' | tr '\n' ' ' | tr '|' '\n' | grep 'input0 .*Handlers=js0' | head -n 1 | grep -Eo 'event[0-9]+'";
+       //FILE *pipej0 = popen(commandj0, "r");
+       //if (pipej0 != NULL) {
+       //    fgets(event_js0, 9, pipej0); /*ex: event0*/
+       //    pclose(pipej0);
+       //    if (event_js0[0] != 0) {
+               //strcat(evdev_name_js0, "/dev/input/js0");
+	       evdev_name_js0[strlen(evdev_name_js0)]=0;
+	       printf("evdev_name_js0:  [%s]\n",evdev_name_js0);
+               //evdev_js0_fd = open(evdev_name_js0, O_RDWR|O_NOCTTY|O_NDELAY);
+               evdev_js0_fd = open(evdev_name_js0, O_RDONLY|O_NOCTTY|O_NDELAY);
+               if (evdev_js0_fd != -1) {
+                   fcntl(evdev_js0_fd, F_SETFL, O_ASYNC|O_NONBLOCK);
+               }
+	       //}
+      // }
     
     #if USE_EVDEV_MOUSE == 1
        /*detect mouse0*/
@@ -234,6 +254,34 @@ bool evdev_read_keyboard(lv_indev_data_t * data)
                 }
 
 	}
+    }
+    return false;
+}
+bool evdev_read_joystick(lv_indev_data_t * data) {
+    static int16_t enc_diff = 0;
+    struct js_event in;
+
+    
+    data->state = LV_INDEV_STATE_REL;
+
+    //struct input_event in;
+    //while(read(evdev_fd, &in, sizeof(struct input_event)) > 0) {
+    while(read(evdev_js0_fd, &in, sizeof(struct js_event)) > 0) {
+	    printf("in.time: %d in.value %d in.type%d in.number%d\n",in.time,in.value,in.type,in.number);
+	    if (in.number==0) {
+		    if (in.value==1)
+			data->state = LV_INDEV_STATE_PR;          /*Save the key is pressed now*/
+		    else
+            		data->state = LV_INDEV_STATE_REL;         /*Save the key is released but keep the last key*/
+	    } else if (in.number==7) {
+		    if (in.value<0) 
+			    enc_diff=-1;
+		    else if (in.value>0) 
+			    enc_diff=1;
+	    }
+
+    data->enc_diff = enc_diff;
+
     }
     return false;
 }

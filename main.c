@@ -32,7 +32,13 @@ lv_test_group_1();
         lv_indev_drv_init(&indev_drv);
         indev_drv.type = LV_INDEV_TYPE_POINTER;
         indev_drv.read = evdev_read_mouse;
-//      lv_indev_drv_register(&indev_drv);
+        // get an input device like mouse
+	//
+        lv_indev_drv_t joy_indev_drv;
+        lv_indev_drv_init(&joy_indev_drv);
+        joy_indev_drv.type = LV_INDEV_TYPE_ENCODER;
+        joy_indev_drv.read = evdev_read_joystick;
+      lv_indev_drv_register(&joy_indev_drv);
 
     lv_indev_t * mouse_indev = lv_indev_drv_register(&indev_drv);
     lv_obj_t * cursor_obj =  lv_img_create(lv_scr_act(), NULL); /*Create an image for the cursor */

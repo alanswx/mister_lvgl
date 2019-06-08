@@ -56,6 +56,7 @@ bool evdev_set_file(char* dev_name);
 bool evdev_read(lv_indev_data_t * data);
 bool evdev_read_keyboard(lv_indev_data_t * data);
 bool evdev_read_mouse(lv_indev_data_t * data);
+bool evdev_read_joystick(lv_indev_data_t * data);
 
 
 /**********************

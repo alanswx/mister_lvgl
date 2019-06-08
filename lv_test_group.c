@@ -107,7 +107,12 @@ void lv_test_group_1(void)
     lv_indev_set_group(real_kb_indev, g);
 #endif
 
-#if LV_EX_MOUSEWHEEL
+    lv_indev_drv_t enc_drv;
+    enc_drv.type = LV_INDEV_TYPE_ENCODER;
+    enc_drv.read = evdev_read_joystick;
+    lv_indev_t * enc_indev = lv_indev_drv_register(&enc_drv);
+    lv_indev_set_group(enc_indev, g);
+#if 0 && LV_EX_MOUSEWHEEL
     lv_indev_drv_t enc_drv;
     enc_drv.type = LV_INDEV_TYPE_ENCODER;
     enc_drv.read = mousewheel_read;

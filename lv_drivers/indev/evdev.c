@@ -16,7 +16,7 @@
 #include <linux/joystick.h>
 
 #include "keymap.h"
-
+#include "keyboard.h"
 
 /*********************
  *      DEFINES
@@ -256,6 +256,9 @@ bool evdev_read_keyboard(lv_indev_data_t * data)
 	}
     }
     return false;
+}
+bool keyboard_read(lv_indev_data_t * data) {
+	return evdev_read_keyboard(data);
 }
 bool evdev_read_joystick(lv_indev_data_t * data) {
     static int16_t enc_diff = 0;

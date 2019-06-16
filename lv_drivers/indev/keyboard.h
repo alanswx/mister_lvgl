@@ -18,6 +18,7 @@ extern "C" {
 #else
 #include "../../lv_drv_conf.h"
 #endif
+bool keyboard_read(lv_indev_data_t * data);
 #if 0
 #if USE_KEYBOARD
 

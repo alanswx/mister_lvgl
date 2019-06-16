@@ -25,7 +25,7 @@ SRC2 = $(wildcard *.cpp)
 IMG = $(wildcard *.png)
 LVGL_SRC	= $(wildcard ./lvgl/*/*.c)
 LVGL_DEMO_SRC	= $(wildcard ./lv_examples/lv_apps/demo/*.c)
-LVGL_DEMO2_SRC	= $(wildcard ./DONTUSElv_examples/lv_tests/lv_test_group/*.c)
+LVGL_DEMO2_SRC	= $(wildcard ./lv_mister/*.c)
 LVGL_DRIVER_SRC	= $(wildcard ./lv_drivers/display/*.c)
 LVGL_DRIVER2_SRC= $(wildcard ./lv_drivers/indev/*.c)
 

@@ -5,6 +5,8 @@
 #include "lv_examples/lv_tests/lv_test_group/lv_test_group.h"
 #include <unistd.h>
 
+#include "lv_mister/window.h"
+
 int main(void)
 {
     /*LittlevGL init*/
@@ -23,7 +25,8 @@ int main(void)
     /*Create a Demo*/
     //demo_create();
 
-lv_test_group_1();
+//lv_test_group_1();
+create_main_window( );
         // enable event input
         evdev_init();
 
